@@ -2,26 +2,9 @@
 #include "HashTable.h"
 #include "List.h"
 #include "Codes.h"
+#include "testBinF.h"
 
 HashTable hashTable(5);
-
-struct diallingCodes {
-    int code;
-    char city[20];
-    char country[20];
-};
-
-void setArray(char* arr, const char word[]) {
-    for (int i = 0; i < sizeof(word); i++) {
-        arr[i] = word[i];
-    }
-}
-
-void setStruct(diallingCodes& obj, int code, const char city[], const char country[]) {
-    obj.code = code;
-    setArray(obj.city, city);
-    setArray(obj.country, country);
-}
 
 int hashTestMenu() {
     int choise;
@@ -39,45 +22,40 @@ int hashTestMenu() {
 }
 
 void testingHash() {
-    diallingCodes obj;
-    int code, size = 0;
+    Codes::diallingCodes node;
+    int code;
     char word1[20], word2[20];
     int choise;
     choise = hashTestMenu();
     while (choise != 0) {
         switch (choise) {
-        case(1): {
-            cout << "Please enter the name of the city: ";
+        case(1): 
+            cout << "Please enter the name of the file with records: ";
             cin >> word1;
-            cout << "Please enter the name of the country: ";
-            cin >> word2;
-            cout << "Please enter the dialling code: ";
+            cout << "Please enter the index of record to write into hash table: ";
             cin >> code;
-            setStruct(obj, code, word1, word2);
-            hashTable.insertItem(obj.code, size, obj.city, obj.country);
-            size++;
+            node = worker.getCurrentCode(word1, code);
+            hashTable.insertItem(node.code, code);
             break;
-        }
-        case(2): {
-            cout << "Please enter the dialling code: ";
+        case(2): 
+            cout << "Please enter the key of the item (the dialling code): ";
             cin >> code;
             hashTable.deleteItem(code);
-            size--;
             break;
-        }
-        case(3): {
-            cout << "Please enter the dialling code: ";
+        case(3): 
+            cout << "Please enter the name of the file with records: ";
+            cin >> word1;
+            cout << "Please enter the key of the item (the dialling code): ";
             cin >> code;
             hashTable.getItemByKey(code);
-            cout << "\n" << hashTable.getNode()->code <<
-                " " << hashTable.getNode()->city <<
-                " " << hashTable.getNode()->country;
+            node = worker.getCurrentCode(word1, hashTable.getNode()->position);
+            cout << node.code <<
+                " " << node.city <<
+                " " << node.country << endl;
             break;
-        }
-        case(4): {
+        case(4): 
             hashTable.displayHashTable();
             break;
-        }
         }
         choise = hashTestMenu();
     }

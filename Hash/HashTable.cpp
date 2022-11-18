@@ -9,8 +9,8 @@ HashTable::HashTable(int b) {
     }
 }
 
-void HashTable::insertItem(int code, int position, const char city[], const char country[]) {
-    diallingCodes* node = new diallingCodes(code, position, city, country);
+void HashTable::insertItem(int code, int position) {
+    diallingCodes* node = new diallingCodes(code, position);
     int index = HashTableFunction(node->code);
     this->table->operator[](index)->pushBack(node);
 }

@@ -10,16 +10,15 @@
 using namespace std;
 
 class Codes{
-    private:
+    public:
         struct diallingCodes { //структура записи файла с телефонным кодом города
             int code;
             char city[20];
             char country[20];
         };
-    public:
         void printFile(string filename); //вывод в консоль содержимого текстового файла
         void printBin(string filename); //вывод в консоль содержимого бинарного файла
-        bool doesExist(string name); 
+        bool doesExist(string name);
         void fromTextToBinary(string fileText, string fileBin); //преобразование тестовых данных из текстового файла в двоичный файл
         void fromBinToText(string fileText, string fileBin); //преобразование данных из двоичного файла в текстовый
         diallingCodes getCurrentCode(string filename, int position); //доступ к записи по ее порядковому номеру в файле

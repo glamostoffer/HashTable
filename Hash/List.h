@@ -79,7 +79,7 @@ void List<T>::printList()//метод для вывода списка на экран
 {
     Node<T>* current = this->root;
     for (int i = 0; i < size; i++) {
-        cout << current->data->code << " " << current->data->city << " " << current->data->country << endl;
+        cout << current->data->code << " " << current->data->position << endl;
         current = current->p_next;
     }
 }

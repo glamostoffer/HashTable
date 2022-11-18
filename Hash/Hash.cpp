@@ -6,19 +6,17 @@ using namespace std;
 
 void readAllFromFileAddToHash(string fileName, Codes bin, HashTable table) {
     ifstream binary(fileName, ios::binary | ios::in);
-    diallingCodes diallingCode;
+    Codes::diallingCodes diallingCode;
     int i = 1;
 
-    while (binary.read((char*)&diallingCode, sizeof(diallingCodes))) {
-        table.insertItem(bin.getCurrentCode(fileName, i).code, i,
-            bin.getCurrentCode(fileName, i).city, bin.getCurrentCode(fileName, i).country);
+    while (binary.read((char*)&diallingCode, sizeof(Codes::diallingCodes))) {
+        table.insertItem(bin.getCurrentCode(fileName, i).code, i);
         i++;
     }
 }
 
 void readFromFilenAddToHash(string fileName, int index, Codes bin, HashTable table) {
-    table.insertItem(bin.getCurrentCode(fileName, index).code, index,
-        bin.getCurrentCode(fileName, index).city, bin.getCurrentCode(fileName, index).country);
+    table.insertItem(bin.getCurrentCode(fileName, index).code, index);
 }
 
 void deleteBoth(string fileName, int key, Codes bin, HashTable table) {
@@ -28,9 +26,11 @@ void deleteBoth(string fileName, int key, Codes bin, HashTable table) {
 
 void getCurrentNode(string fileName, int key, Codes bin, HashTable table) {
     table.getItemByKey(key);
-    cout << table.getNode()->code <<
-        " " << table.getNode()->city <<
-        " " << table.getNode()->country << endl;
+    Codes::diallingCodes node;
+    node = bin.getCurrentCode(fileName, table.getNode()->position);
+    cout << node.code <<
+        " " << node.city <<
+        " " << node.country << endl;
 }
 
 int main()
@@ -46,6 +46,7 @@ int main()
             << "If you want read struct from file and add it to the hash table enter 3;\n"
             << "If you want to delete item from the hash table and from the file enter 4;\n" 
             << "If you want to get current node from the file enter 5;\n"
+            << "If you want to read whole txt file and add records to the hash table enter 6;\n"
             << "If you want to exit enter 0.\n"
             << "-+===========================+-\n";
         cin >> choise;

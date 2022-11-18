@@ -7,28 +7,21 @@
 
 class HashTable
 {
-private:
-    int BUCKET;
-    // Структура записи файла с телефонным кодом города
+public: 
+    // Структура записи таблицы содержит в себе ключ (код города) и позицию в файле
     struct diallingCodes {
     public:
         int code;
         int position;
-        char city[20];
-        char country[20];
 
-        diallingCodes(){}
-        diallingCodes(int code, int position, const char city[], const char country[]) {
+        diallingCodes() {}
+        diallingCodes(int code, int position) {
             this->code = code;
             this->position = position;
-            for (int i = 0; i < 20; i++) {
-                this->city[i] = city[i];
-            }
-            for (int i = 0; i < 20; i++) {
-                this->country[i] = country[i];
-            }
         }
     };
+private:
+    int BUCKET;
     List<List<diallingCodes*>*>* table;
     List<diallingCodes*>* chain;
     diallingCodes* node;
@@ -36,7 +29,7 @@ private:
 public:
     HashTable(int b = 10);
     // Вставка элемента в хэш-таблицу
-    void insertItem(int code, int position, const char city[], const char country[]);
+    void insertItem(int code, int position);
     // Удаление элемента хэш-таблицы
     void deleteItem(int key);
     // Хэш-функция
